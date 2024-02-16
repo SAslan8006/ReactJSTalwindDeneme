@@ -1,0 +1,189 @@
+#React Tailwind Project
+Merhaba, bu yazı içerisinde React ile beraber Tailwind CSS kütüphanesi ile genel bir proje çalışması hazırlamaya çalışacağım. Tailwind bir gelişmiş ve dökümantasyonu büyük bir CSS kütüphanesi diyebiliriz bu kütüphaneyi aynı şekilde JavaScript ile beraber kullanabiliyorken, React ile aynı şekilde kullanabiliyoruz. 
+React projeleri çalışırken build edilmiş JavaScript, HTML, CSS dosyalarının internet ortamında WEB Pack ile çalıştırılıp, ekrana render edilmesini sağlamaktadır. Bu proje içerisinde ek olarak birde Tremor kütüphanesini kullanacağız, bu kütüphane ile Tailwind ile beraber bir dashboard görünümü vermeye çalışacağız.
+Proje aşamları ve yapılacak işlemler aşağıdaki gibidir;
+React, Tailwind ve Tremor NPM paketlerinin kurulması, kurulum işlemleri Next.js ile yapılacaktır.
+Öncelikle menü tasarımlarının hazırlanması ve fonksiyonel hale getirilmesi,
+KPI verilerini gösterip, ekleyebileceğimiz data verilerinin gösterimlerinin sağlanması,
+Son olarak ise hazırlamış olduğumuzun tasarımın mobil hale getirilmesi, mobil arayüze geçiş yapıldığı zaman bilgisayar görünümündeki menünün gizlenmesi ve hamburger menü tasarımının hazırlanması ve ilgili ikona tıklandığı zaman useState yapısı ile menünün açılmasının sağlanması
+İlk aşama olarak ilgili NPM kütüphanelerin yüklenmesi ile başlayalım;
+Reactın kurulum aşamaları; aşağıdaki kod satırını terminal içerisine yazarak kodumuzu başlatıyoruz.
+npx create-next-app
+Ve aşağıda yer alan soruları cevaplayarak ilerliyoruz, Tailwind kurulumu ile ilgili olan maddeyi "Yes" olarak işaretliyoruz.
+What is your project named? my-ap
+Would you like to use TypeScript? No / Yes
+Would you like to use ESLint? No / Yes
+Would you like to use Tailwind CSS? No / Yes
+Would you like to use `src/` directory? No / Yes
+Would you like to use App Router? (recommended) No / Yes
+Would you like to customize the default import alias? No / Yes
+Ardından ilgili NPM paketleri yüklendikten kurulum işlemleri tamamlanmış oluyor ek olarak bir Tremor paketini kurmamız gerekiyor;
+npm install @tremor/react
+Kurulum işlemleri tamamlandıktan sonra yapmamız gereken bir config ayarlaması mevcuttur. "tailwind.config.js" isimli dosyanın içerisine "content" isimli alana aşağıdaki kod satırını ekliyoruz ve kurulum işlemleri tamamlanmış oluyor.
+"./node_modules/@tremor/**/*.{js,ts,jsx,tsx}"
+Kurulum işlemlerinden emin olmak için aşağıdaki kodu page.js içerisinde çalıştırıp, test edebiliriz.
+import { Card, Text, Metric } from "@tremor/react";
+
+export default () => (
+  <Card className="max-w-xs mx-auto">
+    <Text>Sales</Text>
+    <Metric>$ 34,743</Metric>
+  </Card>
+);
+Evet, kurulum işlemleri tamam bu sefer, ilk başta menü tasarımımız ile başlayalım. Menümüzün genel tasarımı aşağıdaki gibi olacaktır.
+Sol tarafta bir menü elemanları olacak ve sağ tarafta bir resim, isim ve soyisim ek olarak ünvan bilgisinin yer aldığı bir alan olacaktır.
+Bu resim için metin sağlanmadı
+Şimdi ise Tailwind CSS yapıları ile oluşturmaya başlayalım.
+<section
+    className={`max-[640px]:flex-row min-[641px]:flex p-3 bg-slate-300 flex-row-reverse justify-between`}
+      >
+        <article className="flex justify-between gap-3 bg-slate-100 rounded-lg p-3">
+          <article className="flex gap-5">
+            <Image src={logo} alt="Logo" className="rounded-full w-10 h-10" />
+            <article className="flex-col justify-center items-center">
+              <p className="text-sm font-semibold">Enes Akkaya</p>
+              <p className="text-sm font-light">Front End Developer</p>
+            </article>
+          </article>
+          <article
+            onClick={handleClickMenu}
+            className="max-[640px]:block min-[640px]:hidden"
+          >
+            <MenuIcon />
+          </article>
+        </article>
+        <article className="max-[640px]:hidden min[641px]:flex p-5">
+          <ul className="flex gap-4">
+            <li className="cursor-pointer">Anasayfa</li>
+            <li className="cursor-pointer">Hakkımda</li>
+            <li className="cursor-pointer">LinkedIn</li>
+            <li className="cursor-pointer">İletişim</li>
+          </ul>
+        </article>
+        {menu ? (
+          <ul className="flex flex-col justify-center items-center gap-2 mt-3 bg-slate-100 rounded-lg p-3">
+            <li className="cursor-pointer">Anasayfa</li>
+            <li className="cursor-pointer">Hakkımda</li>
+            <li className="cursor-pointer">LinkedIn</li>
+            <li className="cursor-pointer">İletişim</li>
+          </ul>
+        ) : null}
+      </section>
+Kod üzerinde kullanılan yapıları şimdi tek tek bir yorumlamaya çalışalım;
+Aşağıda yer alan kod yapısında ilk öncelikle Flex yapısı ile menümüzün ilk genel yer konumlandırmasını ayarlıyoruz.
+Flex yapısı satır olarak bulunsun fakat ekran görüntü genişliği 640px ve üzerinde ise (mobil görünüm dışında) menü alanları soldan başlasın ve resim alanı sağ tarafta yer alsın fakat mobil görünümde olursa ise görünüm tam tersine dönüşmesini sağlıyoruz.
+<section className={`max-[640px]:flex-row 
+                min-[641px]:flex p-3 bg-slate-300 flex-row-reverse 
+                justify-between`}>
+Şimdi kod yapısının bir alt satıra geçelim; bu seferki kod tarafımızda ise oluşturduğumuz flex yapısı içerisinde bulunacak menü elemanlarımızı oluşturuyoruz. Menü içerisinde ilk başta resim alanları oluşturuyoruz.
+Sağ tarafta olacak şekilde bir beyaz alan ve import edilmiş bir logo (kullanıcı resmi) bulunacaktır ek olarak hemen yanında bir isim soyisim ve ünvan bilgisi olan bir metin yer alacaktır.
+Burada ek olarak bir de <MenuIcon /> isimli bir yapı çağrılmıştır bu yapı ise sadece mobil arayüzlerde gözükmesi için yapılmıştır ve bu ikona tıklandığı zaman bir useState yapısı tetiklenecektir. Şimdi bu yapının biraz daha içine giriş yapalım.
+Tailwind üzerinde min ve max ayarlamaları ile sayfa genişliğine göre gözükecek yapıları ve görünüm ayarlarını (CSS) özelliklerini değiştirebiliyoruz.
+<article className="flex justify-between gap-3 bg-slate-100 rounded-lg p-3"
+    <article className="flex gap-5">
+       <Image src={logo} alt="Logo" className="rounded-full w-10 h-10" />
+         <article className="flex-col justify-center items-center">
+           <p className="text-sm font-semibold">Enes Akkaya</p>
+           <p className="text-sm font-light">Front End Developer</p>
+         </article>
+     </article>
+     <article
+            onClick={handleClickMenu}
+            className="max-[640px]:block min-[640px]:hidden">
+            <MenuIcon />
+     </article>
+</article>
+<MenuIcon /> ve useState yapsını tetikleyecek kod yapısını bir inceleyelim. Bu kod yapısı üzerinde ise React içerisinde geçici depo olarak kullanabileceğimiz bir state yapısı oluşturuyoruz ve bu state yapısı istediğimiz işlem sonrasında bir callback fonksiyon ile state değerimizi tam tersi (true -> false veya false -> true) olacak şekilde bir değer döndürecektir.
+Peki bu state yapısı ne konuda işe yarayacak, mobil görünümde bir svg içeriği oluşturduk bu içeriğe tıklandığı zaman menü gösterilsin mi/gösterilmesin mi olayını tetiklememizi sağlayacaktır.
+"handleClickMenu" fonksiyonumuzu incelediğimiz zaman bir callback fonksiyonu çağırıyor ve bu fonksiyon "menu" değişkenine tanımlı değerin tersini alarak, bu veriyi tekrardan tanımlıyor ve render işlemini tekrardan sağlıyor.
+ const [menu, setMenu] = useState(false);
+
+  const handleClickMenu = () => {
+    setMenu((prev) => !prev);
+    console.log(menu);
+  };
+
+  const MenuIcon = () => {
+    return (
+      <svg viewBox="0 0 100 80" width="40" height="40">
+        <rect width="100" height="20"></rect>
+        <rect y="30" width="100" height="20"></rect>
+        <rect y="60" width="100" height="20"></rect>
+      </svg>
+    );
+  };
+Şimdi kod yapısının bir alt satırına geçelim, buradaki yapılar ise menü yapılarımızı oluşturmaktadır. Yukarıda yer alan menümüz kontrol edildiği zaman aynı şekilde ekran genişliği 640px den büyük ise gözükecek değil ise gözükmeyecek şeklinde ayarlanmıştır ve daha öncesinde oluşturduğumuz state yapısı "true" ise mobil menümüzün görünümünü gösterecektir değil ise (false) hiçbir şey döndürmeyecektir.
+<article className="max-[640px]:hidden min[641px]:flex p-5"
+          <ul className="flex gap-4">
+            <li className="cursor-pointer">Anasayfa</li>
+            <li className="cursor-pointer">Hakkımda</li>
+            <li className="cursor-pointer">LinkedIn</li>
+            <li className="cursor-pointer">İletişim</li>
+          </ul>
+        </article>
+        {menu ? (
+          <ul className="flex flex-col justify-center items-center gap-2 mt-3 bg-slate-100 rounded-lg p-3">
+            <li className="cursor-pointer">Anasayfa</li>
+            <li className="cursor-pointer">Hakkımda</li>
+            <li className="cursor-pointer">LinkedIn</li>
+            <li className="cursor-pointer">İletişim</li>
+          </ul>
+        ) : null}>
+Kodumuzun şimdi bir de mobil görünümündeki çıktısı kontrol edelim;
+Bu resim için metin sağlanmadı
+Şimdi menü kısımlarımızı oluşturduğumuza göre bu sefer KPI Components yapılarımızı oluşturalım bu yapı için ilk başka bir JavaScript objesi oluşturalım.
+ const data = [
+    {
+      id: 1,
+      KPI: "Sales",
+      Amount: "23,049",
+      Change: 12.3,
+    },
+    {
+      id: 2,
+      KPI: "Traffic",
+      Amount: "44,049",
+      Change: 19.1,
+    },
+    {
+      id: 3,
+      KPI: "Conversion",
+      Amount: "5,342",
+      Change: -6.5,
+    },
+    {
+      id: 4,
+      KPI: "Click",
+      Amount: "50,049",
+      Change: 22.3,
+    },
+  ];
+Yapılacak işlem bu obje içerisinde yer alan yapılar içerisinde gezinip, verilerde yer alan bilgileri components içinde render ederek ekrana basmamızı sağlayacaktır.
+"ParameterCard" isimli bir components oluşturuyoruz ve bu componentin bir "data" isimli bir parametre (props) verisi yer alacaktır.
+function ParameterCard({ data }) {
+    return data.map((item) => {
+      return (
+        <Card key={item.id} className="max-w-lg">
+          <Flex justifyContent="between" alignItems="center">
+            <Text>{item.KPI}</Text>
+            <BadgeDelta
+              deltaType="moderateIncrease"
+              isIncreasePositive={item.Change < 0 ? false : true}
+              size="xs"
+            >
+              {item.Change} %
+            </BadgeDelta>
+          </Flex>
+          <Metric>{item.Amount}</Metric>
+        </Card>
+      );
+    });
+  }
+Ve oluşturduğumuz componenti aşağıda çağırıp kullanıyoruz.
+<section className="flex max-[640px]:flex-col gap-5 p-3 
+                    min-[641px]:flex-row justify-between"
+   <ParameterCard data={data} />
+</section>>
+Şimdi ise kodun mantığın inceleyelim; Components yapısına gönderdiğimiz props ile data içerisine girip, .map() fonksiyonu ile her bir eleman dizesi için components yapısı render edilip, ekrana basılmaktadır.
+Bu resim için metin sağlanmadı
+Evet bu yazı içerisinde hem tailwind css ile hemde React ile başlangıç seviyesi niteliğinde bir KPI verileri içeren hemde useState ile çalışılabilecek tekrar niteliğinde bir proje olmuştur.
