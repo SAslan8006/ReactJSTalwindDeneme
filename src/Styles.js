@@ -31,7 +31,7 @@ const styles = {
     //px-6: Yatay (horizontal) dolgu (padding) miktarını 6 birim olarak belirler.
     //w-fit: Öğenin içeriğinin enine (width) içeriğin boyutuna uygun olacak şekilde boyutlanmasını sağlar. Yani, içeriğin genişliği kadar bir alanı kaplar.
     buttonAyarlama: "text-2xl font-bold bg-primary-100 w-fit px-6 py-4 mt-6 rounded-lg",
-
+    animasyonBox: "w-[200px] h-[200px] cursor-pointer bg-red-600 flex-col justify-center items-center"
 };
 
 
