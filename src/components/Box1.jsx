@@ -8,16 +8,23 @@ const Box1 = () => {
                 <motion.div className={styles.animasyonBox}
                     //style={{ opacity: 0.2 }}
                     animate={{
-
-                        x: 250, //'20rem'
-                        opacity: 1
+                        x: 0, //'20rem'
+                        opacity: 1,
+                        scale: 1.5,
+                        rotate: 270,
+                        backgroundColor: "blue"
                     }}
                     initial={{
-                        x: -2000,
-                        opacity: 0
+                        x: 250,
+                        opacity: 0,
+                        backgroundColor: "red"
                     }}
                     transition={{
-                        duration: 1
+                        duration: 5,
+                        //type: "spring",
+                        //damping: 100,
+                        //duration: 5 //Kaç Saniyede gelmesini istersen burada belirtirsin
+                        //stiffness: 800,
                     }}
                 >
                 </motion.div>
@@ -27,3 +34,4 @@ const Box1 = () => {
 }
 
 export default Box1
+

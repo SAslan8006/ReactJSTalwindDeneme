@@ -1,10 +1,13 @@
 import styles from "./Styles";
 import Box1 from "../src/components/Box1"
+import Box2 from "../src/components/Box2.jsx"
+
 export default function App() {
   return (
     <>
       <div className="App">
         <Box1 />
+        <Box2 />
       </div>
       <div className="min-h-screen bg-[#060000]">
         <h1 className="text-4xl  text-primary-300 font-bold underline">
