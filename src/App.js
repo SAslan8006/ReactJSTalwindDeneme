@@ -1,6 +1,9 @@
 import styles from "./Styles";
 import Box1 from "../src/components/Box1"
-import Box2 from "../src/components/Box2.jsx"
+import Box2 from "../src/components/Box2"
+import Box3 from './components/Box3';
+import Box4 from "../src/components/Box4"
+import Box5 from "./components/Box5";
 
 export default function App() {
   return (
@@ -8,6 +11,10 @@ export default function App() {
       <div className="App">
         <Box1 />
         <Box2 />
+        <Box3 />
+        <Box4 />
+        <Box5 />
+
       </div>
       <div className="min-h-screen bg-[#060000]">
         <h1 className="text-4xl  text-primary-300 font-bold underline">
