@@ -1,12 +1,12 @@
-//5 sn içinde içideki kodu yapar ne yapmasını istersen
-setTimeout(() => {
+// //5 sn içinde içideki kodu yapar ne yapmasını istersen
+// setTimeout(() => {
 
-}, 5000);
+// }, 5000);
 
-//her 1000 milisaniyede bir kodu yapar
-setInterval(() => {
+// //her 1000 milisaniyede bir kodu yapar
+// setInterval(() => {
 
-}, 1000);
+// }, 1000);
 
 const sayHi = () => {
     console.log("merhaba")
@@ -32,7 +32,7 @@ fetch("https://jsonplaceholder.typicode.com/users")
     .then((data) => data.json())
     .then((users) => {
         console.log("Userlar:", users)
-        fetch(`https://jsonplaceholder.typicode.com/post`)
+        fetch(`https://jsonplaceholder.typicode.com/posts`)
             .then((data) => data.json())
             .then((posts) => console.log("Postlar", posts))
     }
@@ -43,7 +43,7 @@ async function getData() {
     const users = await fetch("https://jsonplaceholder.typicode.com/users")
         .then((data) => data.json())
     const posts = await fetch("https://jsonplaceholder.typicode.com/posts")
-        .then((data) => data.json())
+        .then((posts) => posts.json())
     console.log("Userlar:", users)
     console.log("Postlar:", posts)
 }
@@ -60,5 +60,3 @@ getData();
     console.log("Postlar:", posts)
 })();
 
-// //parametreli anonim fonksiyon
-// ((name, surname) => console.log(`${name} ${surname}`))('hatice', 'nur');

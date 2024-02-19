@@ -1,15 +1,15 @@
-import styles from "./Styles";
-import Box1 from "../src/components/Box1"
-import Box2 from "../src/components/Box2"
-import Box3 from './components/Box3';
-import Box4 from "../src/components/Box4"
-import Box5 from "./components/Box5";
-import Box6 from "./components/Box6";
+// import styles from "./Styles";
+// import Box1 from "./components/Animasyon/Box1"
+// import Box2 from "./components/Animasyon/Box2"
+// import Box3 from './components/Animasyon/Box3';
+// import Box4 from "./components/Animasyon/Box4"
+// import Box5 from "./components/Animasyon/Box5";
+// import Box6 from "./components/Animasyon/Box6";
 import Callback from "./components/React/callback";
 export default function App() {
   return (
     <>
-      <div className="App">
+      <div className="bg-amber-500">
         {/* <Box1 />
         <Box2 />
         <Box3 />
@@ -17,8 +17,9 @@ export default function App() {
         <Box5 />
         <Box6 /> */}
         <Callback />
+        <h1>Süleyman</h1>
       </div>
-      <div className="min-h-screen bg-[#060000]">
+      {/* <div className="min-h-screen bg-[#060000]">
         <h1 className="text-4xl  text-primary-300 font-bold underline">
           Hello world!
         </h1>
@@ -65,7 +66,7 @@ export default function App() {
         </button>
 
 
-      </div >
+      </div > */}
     </>
   )
 }

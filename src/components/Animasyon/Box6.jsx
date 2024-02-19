@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion, useAnimation } from 'framer-motion';
-import styles from './../Styles';
+import styles from '../../Styles';
 
 const Box6 = () => {
     const control = useAnimation();
