@@ -55,3 +55,9 @@ console.log(filtred);
 
 // some ile en az bir tanesini kontrol etmek
 console.log(users.some((item) => item.age > 30))
+
+//every ile tüm tanesini kontrol etmek
+console.log(users.every((item) => item.age > 30))
+
+//includes
+console.log(users.includes("veli"))
