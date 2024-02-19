@@ -5,7 +5,8 @@
 // import Box4 from "./components/Animasyon/Box4"
 // import Box5 from "./components/Animasyon/Box5";
 // import Box6 from "./components/Animasyon/Box6";
-import Callback from "./components/React/callback";
+// import Callback from "./components/React/callback";
+import Axios1 from "../axios";
 export default function App() {
   return (
     <>
@@ -16,7 +17,9 @@ export default function App() {
         <Box4 />
         <Box5 />
         <Box6 /> */}
-        <Callback />
+        {/* <Callback /> */}
+        <Axios1 />
+
         <h1>Süleyman</h1>
       </div>
       {/* <div className="min-h-screen bg-[#060000]">
