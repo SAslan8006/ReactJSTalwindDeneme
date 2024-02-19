@@ -5,18 +5,18 @@ import Box3 from './components/Box3';
 import Box4 from "../src/components/Box4"
 import Box5 from "./components/Box5";
 import Box6 from "./components/Box6";
-
+import Callback from "./components/React/callback";
 export default function App() {
   return (
     <>
       <div className="App">
-        <Box1 />
+        {/* <Box1 />
         <Box2 />
         <Box3 />
         <Box4 />
         <Box5 />
-        <Box6 />
-
+        <Box6 /> */}
+        <Callback />
       </div>
       <div className="min-h-screen bg-[#060000]">
         <h1 className="text-4xl  text-primary-300 font-bold underline">
